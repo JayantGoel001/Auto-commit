@@ -1,0 +1,24 @@
+name: "Run"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        persist-credentials: false
+        fetch-depth: 0 
+    - name: Commit & Push changes
+      uses: actions-js/push@master
+      with:
+        github_token: ${{ secrets.GH_TOKEN }}
+        empty: true
+        message: "Auto Commit"
+        author_email: "jgoel92@gmail.com"
+        author_name: "Jayant Goel"
+        branch: "master"
